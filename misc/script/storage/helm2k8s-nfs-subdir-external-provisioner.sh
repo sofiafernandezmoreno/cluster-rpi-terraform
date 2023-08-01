@@ -6,10 +6,10 @@ set -e
 
 # Download prometheus-operator stable chart
 
-HELM_CHART_NAME="vault"
-HELM_CHART_REPO="hashicorp/vault"
-HELM_CHART_VERSION="0.25.0"
-TEMPLATE_NAME="vault"
+HELM_CHART_NAME="nfs-subdir-external-provisioner"
+HELM_CHART_REPO="nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+HELM_CHART_VERSION="4.0.18"
+TEMPLATE_NAME="nfs-subdir-external-provisioner"
 
 function getChartVersion()
 {
@@ -76,7 +76,7 @@ function filesToVersionControl()
 {
   echo "--- fileToVersionControl"
   echo "Implementing"
-  cp -r tmp/k8s/* ../../../k8s/${TEMPLATE_NAME}/.
+  cp -r tmp/k8s/* ../../../k8s/storage/.
   rm -rf tmp
   rm -rf ${TEMPLATE_NAME}
 }
