@@ -55,9 +55,7 @@ terraform apply -var-file="terraform.rpi03.tfvars"
 
 
 
-## Loki
-
-<https://grafana.com/docs/loki/latest/installation/helm/>
+## [Loki](https://grafana.com/docs/loki/latest/installation/helm/>)
 
 ```sh
 helm repo add loki https://grafana.github.io/loki/charts
