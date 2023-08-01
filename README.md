@@ -1,6 +1,6 @@
 # Raspberry Pi Initialization with Terraform
 
-This is for Provisioning a Rpi2/3/4 K3s cluster using terraform.
+This is for Provisioning a Rpi 3 and 4 K3s cluster using terraform.
 
 ## Manual Steps
 
@@ -21,7 +21,7 @@ My cluster has the following components:
 
   Name         | Ram  | IP Address    | Hostname  | Role   |
 ---------------|------|---------------|-----------|--------|
-Raspberry Pi 4 | 8 GB | 192.168.0.28  | rpi01     | Master |
+Raspberry Pi 4 | 4 GB | 192.168.0.28  | rpi01     | Master |
 Raspberry Pi 3 | 1 GB | 192.168.0.4   | rpi02     | Worker |
 Raspberry Pi 3 | 1 GB | 192.168.0.5   | rpi03     | Worker |
 
