@@ -53,37 +53,7 @@ terraform plan -var-file="terraform.rpi03.tfvars"
 terraform apply -var-file="terraform.rpi03.tfvars"
 ```
 
-## Kubernetes
 
-### kubeconfig
-
-1. Get kubectl <https://kubernetes.io/docs/tasks/tools/install-kubectl/>
-2. Configuration of kubectl <https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/>
-3. Test access
-   - `--kubeconfig` flag
-
-      ```cmd
-      kubectl --kubeconfig kubeconfig get node
-      ```
-
-   - `KUBECONFIG` environment variable
-
-      ```cmd
-      set KUBECONFIG=kubeconfig
-      kubectl get node
-      ```
-
-4. Create Kubernetes Dashboard
-
-   ```cmd
-   kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.3/aio/deploy/recommended.yaml
-   kubectl create -f dashboard.admin-user.yml -f dashboard.admin-user-role.yml
-   kubectl -n kubernetes-dashboard describe secret admin-user-token
-   kubectl proxy
-   ```
-
-5. Login Kubernetes Dashboard  
-   <http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/>
 
 ## Loki
 
