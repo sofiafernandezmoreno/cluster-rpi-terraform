@@ -6,10 +6,10 @@ set -e
 
 # Download prometheus-operator stable chart
 
-HELM_CHART_NAME="loki"
-HELM_CHART_REPO="grafana/loki"
-HELM_CHART_VERSION="5.9.0"
-TEMPLATE_NAME="loki"
+HELM_CHART_NAME="keda"
+HELM_CHART_REPO="kedacore/keda"
+HELM_CHART_VERSION="2.11.2"
+TEMPLATE_NAME="keda"
 
 function getChartVersion()
 {
