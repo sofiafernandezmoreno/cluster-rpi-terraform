@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  .dockerconfigjson: {{ d-core-extra-secretB64 }}
+kind: Secret
+metadata:
+  name: {{ imagePullSecret }}
+type: kubernetes.io/dockerconfigjson

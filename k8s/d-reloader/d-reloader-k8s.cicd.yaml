@@ -1,0 +1,36 @@
+#---
+# A complete schema guide can be found on the wiki page: 
+# https://pages.github.kyndryl.net/iscp-global/doc/cicd-file/
+#---
+
+cicd_version: "1.2"
+unit_id: d-reloader-gitops
+description: |
+  App for automatic reload pods after secret change
+actions:
+  # - apply                                               # kubectl apply
+deployment:
+  - name: Deploy d-reloader
+    state: enable                                       # Options: enable, disable
+    deploy_dir: k8s
+    deploy_method: argocd                              # kubectl, oc, calicoctl, terraform and argocd
+    waitforseconds: 0                                   # Delay in seconds this deployment
+    targets:
+      - name: [[ clusterId ]]                              # e.g. ibc-abc-dev-0003-k01
+        namespace: d-reloader                    # Namespace for resources
+        target_id:  [[ clusterId ]]                         # e.g. ibc-abc-dev-0003-k01
+        type: k8s_clusters
+        waitforseconds: 0                               # Delay in seconds this particular target
+    replace_vars:
+      - name: "{{ k8sNamespace }}"
+        value: "d-reloader"
+      - name: "{{ imageInstanceLocation }}"
+        value: "de.icr.io/{{ global.mf.imageRegistryNamespaces.d-core-extra.name }}"
+      - name: "{{ imageNameTag }}"
+        value: "d-reloader:v1.0.40-1.0.0"
+      - name: "{{ imagePullSecret }}"
+        value: "{{ global.mf.imageRegistryNamespaces.d-core-extra.name }}-cr-ro"
+      - name: "{{ d-core-extra-secretB64 }}"
+        value: "vault://iscp/data/{{ global.instanceName }}/shared/registries/de-icr-io/{{ global.mf.imageRegistryNamespaces.d-core-extra.name }}--secretRoB64"
+  
+

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: simpleconfig
+  namespace: {{ k8sNamespace }}
+data:
+  foo: pepino
+  hello: world
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    reloader.stakater.com/auto: "true"
+  name: test-reloader
+  namespace: {{ k8sNamespace }}
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        env:
+          - name: FOO_ENV_VAR
+            valueFrom:
+              configMapKeyRef:
+                name: simpleconfig
+                key: foo
+          - name: HELLO_ENV_VAR
+            valueFrom:
+              configMapKeyRef:
+                name: simpleconfig
+                key: hello

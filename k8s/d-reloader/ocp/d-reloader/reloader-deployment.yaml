@@ -1,0 +1,82 @@
+---
+# Source: reloader/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    meta.helm.sh/release-namespace: "{{ k8sNamespace }}"
+    meta.helm.sh/release-name: "d-reloader"
+  labels:
+    app: d-reloader-reloader
+    chart: "reloader-1.0.40"
+    release: "d-reloader"
+    heritage: "Helm"
+    app.kubernetes.io/managed-by: "Helm"
+    group: com.stakater.platform
+    manage: iscp
+    provider: stakater
+    version: v1.0.0
+  name: d-reloader-reloader
+  namespace: {{ k8sNamespace }}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: d-reloader-reloader
+      release: "d-reloader"
+  template:
+    metadata:
+      labels:
+        app: d-reloader-reloader
+        chart: "reloader-1.0.40"
+        release: "d-reloader"
+        heritage: "Helm"
+        app.kubernetes.io/managed-by: "Helm"
+        group: com.stakater.platform
+        manage: iscp
+        provider: stakater
+        version: v1.0.0
+    spec:
+      imagePullSecrets:
+        - name: '{{ imagePullSecret }}'
+      containers:
+      - image: "{{ imageInstanceLocation }}/d-reloader:v1.0.40-1.0.0"
+        imagePullPolicy: IfNotPresent
+        name: d-reloader-reloader
+
+        ports:
+        - name: http
+          containerPort: 9090
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: http
+          timeoutSeconds: 5
+          failureThreshold: 5
+          periodSeconds: 10
+          successThreshold: 1
+          initialDelaySeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: http
+          timeoutSeconds: 5
+          failureThreshold: 5
+          periodSeconds: 10
+          successThreshold: 1
+          initialDelaySeconds: 10
+
+        securityContext:
+          {}
+        resources:
+          limits:
+            cpu: 100m
+            memory: 512Mi
+          requests:
+            cpu: 10m
+            memory: 128Mi
+      securityContext: 
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccountName: d-reloader-reloader

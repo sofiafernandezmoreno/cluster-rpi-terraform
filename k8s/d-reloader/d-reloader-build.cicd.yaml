@@ -1,0 +1,21 @@
+#---
+# A complete schema guide can be found on the wiki page: 
+# https://pages.github.kyndryl.net/iscp-global/doc/cicd-file/
+#---
+
+cicd_version: "1.2"
+unit_id: d-reloader
+description: |
+  Images for d-reloader
+actions:
+  # - build                                            # Build image
+build:
+
+- name: Build d-reloader
+  state: enable                                      # Options: enable, disable
+  engine: kaniko 
+  dockerfile_path: build                             # Dockerfile or dir (e.g build or build/Dockerfile)
+  image_name: d-reloader                            # e.g. c-redis
+  image_tag: v1.0.40-1.0.0                              # e.g. 1.0.0
+  registry_url: de.icr.io                            
+  registry_namespace: d-core-extra            
