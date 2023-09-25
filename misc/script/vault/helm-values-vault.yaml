@@ -752,7 +752,7 @@ server:
   # use dev mode for anything other than experimenting.
   # See https://www.vaultproject.io/docs/concepts/dev-server.html to know more
   dev:
-    enabled: false
+    enabled: true
 
     # Set VAULT_DEV_ROOT_TOKEN_ID value
     devRootToken: "root"

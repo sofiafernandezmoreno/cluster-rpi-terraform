@@ -16,4 +16,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: vault
-  namespace: k8sNamespace
+  namespace: vault
